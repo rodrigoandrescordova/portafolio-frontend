@@ -1,0 +1,53 @@
+<mat-sidenav-container class="layout-container">
+  <mat-sidenav #sidenav mode="over" [opened]="false">
+    <mat-nav-list>
+      <a mat-list-item routerLink="/" (click)="sidenav.close()">
+        <mat-icon matListItemIcon>home</mat-icon>
+        <span matListItemTitle>Inicio</span>
+      </a>
+      <a mat-list-item routerLink="/usuarios" (click)="sidenav.close()">
+        <mat-icon matListItemIcon>people</mat-icon>
+        <span matListItemTitle>Usuarios</span>
+      </a>
+      <a mat-list-item routerLink="/regiones" (click)="sidenav.close()">
+        <mat-icon matListItemIcon>map</mat-icon>
+        <span matListItemTitle>Regiones</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar color="primary" class="toolbar">
+      <button mat-icon-button (click)="sidenav.toggle()" aria-label="Menú">
+        <mat-icon>menu</mat-icon>
+      </button>
+
+      <span class="toolbar-title" routerLink="/" style="cursor: pointer;">
+        🇨🇱 Portafolio
+      </span>
+
+      <span class="toolbar-spacer"></span>
+
+      <a mat-button routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+        <mat-icon>home</mat-icon>
+        <span class="hide-on-mobile">Inicio</span>
+      </a>
+      <a mat-button routerLink="/usuarios" routerLinkActive="active-link">
+        <mat-icon>people</mat-icon>
+        <span class="hide-on-mobile">Usuarios</span>
+      </a>
+      <a mat-button routerLink="/regiones" routerLinkActive="active-link">
+        <mat-icon>map</mat-icon>
+        <span class="hide-on-mobile">Regiones</span>
+      </a>
+    </mat-toolbar>
+
+    <main class="main-content">
+      <router-outlet></router-outlet>
+    </main>
+
+    <footer class="footer">
+      <p>Portafolio Project · Angular 18 + NestJS + PostgreSQL</p>
+    </footer>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,45 @@
+<div class="page-container">
+  <div class="page-header">
+    <h1>🌎 Regiones de Chile</h1>
+  </div>
+
+  <app-loading
+    *ngIf="loading"
+    message="Cargando regiones..."
+  ></app-loading>
+
+  <mat-accordion *ngIf="!loading" multi>
+    <mat-expansion-panel
+      *ngFor="let region of regiones"
+      (opened)="onPanelOpened(region.id)"
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon class="region-icon">place</mat-icon>
+          {{ region.nombre }}
+        </mat-panel-title>
+        <mat-panel-description>
+          <mat-chip>{{ region.codigo }}</mat-chip>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <ng-container *ngIf="comunasPorRegion[region.id] as comunas">
+        <p *ngIf="comunas.length === 0" class="muted">
+          No hay comunas registradas para esta región
+        </p>
+
+        <mat-chip-set *ngIf="comunas.length > 0">
+          <mat-chip *ngFor="let comuna of comunas">
+            {{ comuna.nombre }}
+          </mat-chip>
+        </mat-chip-set>
+      </ng-container>
+
+      <app-loading
+        *ngIf="loadingComunas[region.id]"
+        message=""
+        [diameter]="30"
+      ></app-loading>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

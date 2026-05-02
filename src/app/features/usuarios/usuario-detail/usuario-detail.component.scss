@@ -1,0 +1,66 @@
+.detail-card {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.avatar {
+  background: #1976d2;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  background: #f8f9fa;
+
+  mat-icon {
+    color: rgba(0, 0, 0, 0.5);
+    margin-top: 2px;
+  }
+
+  .info-label {
+    margin: 0 0 4px;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.5);
+    letter-spacing: 0.5px;
+  }
+
+  .info-value {
+    margin: 0;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.87);
+    word-break: break-word;
+
+    a {
+      color: #1976d2;
+      text-decoration: none;
+      &:hover { text-decoration: underline; }
+    }
+  }
+}
+
+.mono {
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+}
+
+.muted {
+  color: rgba(0, 0, 0, 0.5);
+  font-size: 12px;
+}

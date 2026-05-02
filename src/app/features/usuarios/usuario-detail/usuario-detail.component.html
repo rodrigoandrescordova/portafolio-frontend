@@ -1,0 +1,111 @@
+<div class="page-container">
+  <div class="page-header">
+    <div>
+      <a mat-button routerLink="/usuarios">
+        <mat-icon>arrow_back</mat-icon>
+        Volver a usuarios
+      </a>
+    </div>
+  </div>
+
+  <app-loading
+    *ngIf="loading"
+    message="Cargando usuario..."
+  ></app-loading>
+
+  <mat-card *ngIf="!loading && usuario" class="detail-card">
+    <mat-card-header>
+      <div mat-card-avatar class="avatar">
+        {{ getInitials() }}
+      </div>
+      <mat-card-title>
+        {{ usuario.nombres }} {{ usuario.apellidoPaterno }} {{ usuario.apellidoMaterno }}
+      </mat-card-title>
+      <mat-card-subtitle>
+        <mat-chip
+          [color]="usuario.activo ? 'primary' : 'warn'"
+          highlighted
+        >
+          {{ usuario.activo ? '✓ Activo' : '✕ Inactivo' }}
+        </mat-chip>
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <mat-divider class="mb-4"></mat-divider>
+
+      <div class="info-grid">
+        <div class="info-item">
+          <mat-icon>badge</mat-icon>
+          <div>
+            <p class="info-label">RUT</p>
+            <p class="info-value">{{ usuario.rut }}</p>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <mat-icon>email</mat-icon>
+          <div>
+            <p class="info-label">Email</p>
+            <p class="info-value">
+              <a [href]="'mailto:' + usuario.email">{{ usuario.email }}</a>
+            </p>
+          </div>
+        </div>
+
+        <div class="info-item" *ngIf="usuario.telefono">
+          <mat-icon>phone</mat-icon>
+          <div>
+            <p class="info-label">Teléfono</p>
+            <p class="info-value">
+              <a [href]="'tel:' + usuario.telefono">{{ usuario.telefono }}</a>
+            </p>
+          </div>
+        </div>
+
+        <div class="info-item" *ngIf="usuario.comuna">
+          <mat-icon>location_city</mat-icon>
+          <div>
+            <p class="info-label">Comuna</p>
+            <p class="info-value">{{ usuario.comuna.nombre }}</p>
+          </div>
+        </div>
+
+        <div class="info-item" *ngIf="usuario.region">
+          <mat-icon>map</mat-icon>
+          <div>
+            <p class="info-label">Región</p>
+            <p class="info-value">
+              {{ usuario.region.nombre }}
+              <span class="muted">({{ usuario.region.codigo }})</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <mat-icon>fingerprint</mat-icon>
+          <div>
+            <p class="info-label">ID</p>
+            <p class="info-value mono">{{ usuario.id }}</p>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <mat-icon>event</mat-icon>
+          <div>
+            <p class="info-label">Creado</p>
+            <p class="info-value">{{ usuario.createdAt | date:'medium' }}</p>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <mat-icon>update</mat-icon>
+          <div>
+            <p class="info-label">Última modificación</p>
+            <p class="info-value">{{ usuario.updatedAt | date:'medium' }}</p>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

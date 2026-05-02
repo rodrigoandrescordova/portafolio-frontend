@@ -1,0 +1,99 @@
+<div class="page-container">
+  <div class="page-header">
+    <h1>👥 Usuarios</h1>
+    <button mat-stroked-button color="primary" disabled>
+      <mat-icon>add</mat-icon>
+      Nuevo usuario
+    </button>
+  </div>
+
+  <mat-card>
+    <mat-card-content>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Buscar</mat-label>
+        <input
+          matInput
+          [(ngModel)]="searchTerm"
+          (ngModelChange)="applyFilter()"
+          placeholder="Nombre, email o RUT"
+        />
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+
+      <app-loading
+        *ngIf="loading"
+        message="Cargando usuarios..."
+      ></app-loading>
+
+      <div *ngIf="!loading">
+        <div class="table-container">
+          <table
+            mat-table
+            [dataSource]="dataSource"
+            matSort
+            class="full-width"
+          >
+            <ng-container matColumnDef="rut">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>RUT</th>
+              <td mat-cell *matCellDef="let u">{{ u.rut }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="nombre">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+              <td mat-cell *matCellDef="let u">
+                {{ u.nombres }} {{ u.apellidoPaterno }}
+                {{ u.apellidoMaterno || '' }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="email">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+              <td mat-cell *matCellDef="let u">{{ u.email }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="ubicacion">
+              <th mat-header-cell *matHeaderCellDef>Ubicación</th>
+              <td mat-cell *matCellDef="let u">
+                <span *ngIf="u.comuna">{{ u.comuna.nombre }}</span>
+                <span *ngIf="u.region">, {{ u.region.codigo }}</span>
+                <span *ngIf="!u.comuna && !u.region" class="muted">—</span>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="acciones">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let u">
+                <button
+                  mat-icon-button
+                  color="primary"
+                  [routerLink]="['/usuarios', u.id]"
+                  matTooltip="Ver detalle"
+                >
+                  <mat-icon>visibility</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+            <tr class="mat-row" *matNoDataRow>
+              <td class="mat-cell text-center" [attr.colspan]="displayedColumns.length">
+                <p class="muted p-4">
+                  {{ searchTerm ? 'No hay resultados para "' + searchTerm + '"' : 'No hay usuarios registrados' }}
+                </p>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <mat-paginator
+          [pageSizeOptions]="[5, 10, 25, 50]"
+          [pageSize]="10"
+          showFirstLastButtons
+        >
+        </mat-paginator>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
